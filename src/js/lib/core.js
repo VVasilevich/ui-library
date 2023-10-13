@@ -7,7 +7,7 @@ $.prototype.init = function(selector) {
     return this; // Возвращаем пустой объект
   }
   Object.assign(this, document.querySelectorAll(selector));
-
+  this.length = document.querySelectorAll(selector).length;
   return this;
 };
 
