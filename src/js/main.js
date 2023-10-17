@@ -1,9 +1,11 @@
 import "./lib/lib";
 
 $('button').click(function() {
-  $(this).toggleClass('active');
+  $('div').eq(0).toggleClass('active');
 });
 
-$('button').click(function() {
-  $(this).addAttr('data-test', 'test');
+$('div').click(function() {
+  console.log($(this).index());
 });
+
+console.log($('div').eq('3').find('.two'));
