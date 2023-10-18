@@ -66,3 +66,49 @@ $.prototype.find = function(selector) {
 
   return this;
 };
+
+$.prototype.closest = function(selector) {
+  let counter = 0;
+
+  for (let i = 0; i < this.length; i++) {
+    if (this[i].closest(selector)) {
+      this[i] = this[i].closest(selector);
+      counter++;
+    } else {
+      console.log(`'${selector}' is not found!`);
+    }
+  }
+
+  return this;
+};
+
+$.prototype.siblings = function() {
+  let amountOfElem = 0;
+  let counter = 0;
+
+  const copyObj = Object.assign({}, this);
+
+  for (let i = 0; i < copyObj.length; i++) {
+    const arr = copyObj[i].parentNode.children;
+
+    for (let j = 0; j < arr.length; j++) {
+      if (copyObj[i] === arr[j]) {
+        continue;
+      }
+
+      this[counter] = arr[j];
+      counter++;
+    }
+
+    amountOfElem += arr.length - 1;
+  }
+
+  this.length = amountOfElem;
+
+  const objLength = Object.keys(this).length;
+  for (; amountOfElem < objLength; amountOfElem++) {
+    delete this[amountOfElem];
+  }  
+
+  return this;
+};
