@@ -1,7 +1,7 @@
 import "./lib/lib";
 
 $('button').click(function() {
-  $('div').eq(0).toggleClass('active');
+  $('.findme').fadeOut(1300);
 });
 
 $('div').click(function() {
@@ -10,6 +10,6 @@ $('div').click(function() {
 
 // console.log($('div').eq('3').find('.two'));
 
-console.log($('.two').closest('.findmqqqe').addClass('test'));
-
 // console.log($('.findme').siblings());
+
+$('button').fadeIn(1300);
