@@ -1,15 +1,13 @@
 import "./lib/lib";
 
-$('button').click(function() {
-  $('.findme').fadeOut(1300);
+$('#first').on('click', () => {
+  $('div').eq(1).fadeOut(800);
 });
 
-$('div').click(function() {
-  console.log($(this).index());
+$('[data-count="second"]').on('click', () => {
+  $('div').eq(2).fadeOut(800);
 });
 
-// console.log($('div').eq('3').find('.two'));
-
-// console.log($('.findme').siblings());
-
-$('button').fadeIn(1300);
+$('button').eq(2).on('click', () => {
+  $('.w-500').fadeOut(800);
+});
