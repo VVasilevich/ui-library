@@ -278,68 +278,136 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleDisplay = function
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+// import $ from "../core";
+
+// $.prototype.animateOverTime = function(dur, cb, fin) {
+//   let timeStart;
+
+//   function _animateOverTime(time) {
+//     if (!timeStart) {
+//       timeStart = time;
+//     }
+
+//     let timeElepsed = time - timeStart;
+//     let complection = Math.min(timeElepsed / dur, 1);
+
+//     cb(complection);
+
+//     if (timeElepsed < dur) {
+//       requestAnimationFrame(_animateOverTime);
+//     } else {
+//       if (typeof fin === 'function') {
+//         fin();
+//       }
+//     }
+//   }
+
+//   return _animateOverTime;
+// };
+
+// $.prototype.fadeIn = function(dur, display, fin) {
+//   for (let i = 0; i < this.length; i++) {
+//     this[i].style.display = display || 'block';
+
+//     const _fadeIn = (complection) => {
+//       this[i].style.opacity = complection;
+//     };
+
+//     const ani = this.animateOverTime(dur, _fadeIn, fin);
+//     requestAnimationFrame(ani);
+//   }
+
+//   return this;
+// };
+
+// $.prototype.fadeOut = function(dur, fin) {
+//   for (let i = 0; i < this.length; i++) {
+
+//     const _fadeOut = (complection) => {
+//       this[i].style.opacity = 1 - complection;
+
+//       if (complection === 1) {
+//         this[i].style.display = 'none';
+//       }
+//     };
+
+//     const ani = this.animateOverTime(dur, _fadeOut, fin);
+//     requestAnimationFrame(ani);
+//   }
+
+//   return this;
+// };
+
+// $.prototype.fadeToggle = function(dur, display, fin) {
+//   for (let i = 0; i < this.length; i++) {
+//     if (window.getComputedStyle(this[i]).display === 'none') {
+//       this[i].style.display = display || 'block';
+
+//       const _fadeIn = (complection) => {
+//         this[i].style.opacity = complection;
+//       };
+
+//       const ani = this.animateOverTime(dur, _fadeIn, fin);
+//       requestAnimationFrame(ani);
+//     } else {
+//       const _fadeOut = (complection) => {
+//         this[i].style.opacity = 1 - complection;
+
+//         if (complection === 1) {
+//           this[i].style.display = 'none';
+//         }
+//       };
+
+//       const ani = this.animateOverTime(dur, _fadeOut, fin);
+//       requestAnimationFrame(ani);
+//     }
+//   }
+
+//   return this;
+// };
+
 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.animateOverTime = function (dur, cb, fin) {
-  let timeStart;
-  function _animateOverTime(time) {
-    if (!timeStart) {
-      timeStart = time;
-    }
-    let timeElepsed = time - timeStart;
-    let complection = Math.min(timeElepsed / dur, 1);
-    cb(complection);
-    if (timeElepsed < dur) {
-      requestAnimationFrame(_animateOverTime);
-    } else {
-      if (typeof fin === 'function') {
-        fin();
-      }
+  const startTime = performance.now();
+  function animate(time) {
+    const elapsedTime = time - startTime;
+    const completion = Math.min(elapsedTime / dur, 1);
+    cb(completion);
+    if (completion < 1) {
+      requestAnimationFrame(animate);
+    } else if (typeof fin === 'function') {
+      fin();
     }
   }
-  return _animateOverTime;
+  requestAnimationFrame(animate);
 };
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeIn = function (dur, display, fin) {
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fade = function (dur, display, fin, isFadeIn) {
   for (let i = 0; i < this.length; i++) {
-    this[i].style.display = display || 'block';
-    const _fadeIn = complection => {
-      this[i].style.opacity = complection;
-    };
-    const ani = this.animateOverTime(dur, _fadeIn, fin);
-    requestAnimationFrame(ani);
-  }
-  return this;
-};
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function (dur, fin) {
-  for (let i = 0; i < this.length; i++) {
-    const _fadeOut = complection => {
-      this[i].style.opacity = 1 - complection;
-      if (complection === 1) {
+    if (isFadeIn) {
+      this[i].style.display = display || 'block';
+    }
+    const _animateFn = completion => {
+      this[i].style.opacity = isFadeIn ? completion : 1 - completion;
+      if (!isFadeIn && completion === 1) {
         this[i].style.display = 'none';
       }
     };
-    const ani = this.animateOverTime(dur, _fadeOut, fin);
-    requestAnimationFrame(ani);
+    this.animateOverTime(dur, _animateFn, fin);
   }
   return this;
+};
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeIn = function (dur, display, fin) {
+  return this.fade(dur, display, fin, true);
+};
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function (dur, fin) {
+  return this.fade(dur, null, fin, false);
 };
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function (dur, display, fin) {
   for (let i = 0; i < this.length; i++) {
     if (window.getComputedStyle(this[i]).display === 'none') {
-      this[i].style.display = display || 'block';
-      const _fadeIn = complection => {
-        this[i].style.opacity = complection;
-      };
-      const ani = this.animateOverTime(dur, _fadeIn, fin);
-      requestAnimationFrame(ani);
+      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeIn(800);
     } else {
-      const _fadeOut = complection => {
-        this[i].style.opacity = 1 - complection;
-        if (complection === 1) {
-          this[i].style.display = 'none';
-        }
-      };
-      const ani = this.animateOverTime(dur, _fadeOut, fin);
-      requestAnimationFrame(ani);
+      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeOut(800);
     }
   }
   return this;
@@ -458,7 +526,7 @@ $('#first').on('click', () => {
 $('[data-count="second"]').on('click', () => {
   $('div').eq(2).fadeToggle(800);
 });
-$('button').eq(2).on('click', () => {
+$('.btn-warning').on('click', () => {
   $('.w-500').fadeToggle(800);
 });
 })();
