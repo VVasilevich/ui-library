@@ -135,13 +135,13 @@ $.prototype.fadeOut = function (dur, fin) {
   return this.fade(dur, null, fin, false);
 };
 
-$.prototype.fadeToggle = function (dur, display, fin) {
+$.prototype.fadeToggle = function (dur) {
   for (let i = 0; i < this.length; i++) {
 
     if (window.getComputedStyle(this[i]).display === 'none') {
-      $(this[i]).fadeIn(800);
+      $(this[i]).fadeIn(dur);
     } else {
-      $(this[i]).fadeOut(800);
+      $(this[i]).fadeOut(dur);
     }
   }
 

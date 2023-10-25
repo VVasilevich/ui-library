@@ -425,12 +425,12 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeIn = function (dur, 
 _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function (dur, fin) {
   return this.fade(dur, null, fin, false);
 };
-_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function (dur, display, fin) {
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function (dur) {
   for (let i = 0; i < this.length; i++) {
     if (window.getComputedStyle(this[i]).display === 'none') {
-      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeIn(800);
+      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeIn(dur);
     } else {
-      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeOut(800);
+      (0,_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeOut(dur);
     }
   }
   return this;
