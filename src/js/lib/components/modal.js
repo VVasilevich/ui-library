@@ -41,16 +41,17 @@ $.prototype.createModal = function({text, btns} = {}) {
 
     const buttons = [];
     for (let j = 0; j < btns.count; j++) {
+      const btnSetting = btns.settings[j];
       let btn = document.createElement('button');
-      btn.classList.add('btn', ...btns.settings[j][1]);
-      btn.textContent = btns.settings[j][0];
-      if (btns.settings[j][2]) {
+      btn.classList.add('btn', ...btnSetting[1]);
+      btn.textContent = btnSetting[0];
+      if (btnSetting[2]) {
         btn.setAttribute('data-close', 'true');
       }
-      if (btns.settings[j][3] && typeof(btns.settings[j][3]) === 'function') {
-        btn.addEventListener('click', btns.settings[j][3]);
+      if (btnSetting[3] && typeof btnSetting[3] === 'function') {
+        btn.addEventListener('click', btnSetting[3]);
       }
-
+    
       buttons.push(btn);
     }
 
